@@ -60,7 +60,7 @@ def interpolate(attr, rast, attr_idx, rast_db=None):
 def render_mesh(mesh, mv, mvp, iter_res, return_types = ["mask", "depth"], white_bg=False):
     v_pos_clip = xfm_points(mesh.vertices.unsqueeze(0), mvp)  # Rotate it to camera coordinates
     rast, db = dr.rasterize(
-        dr.RasterizeGLContext(), v_pos_clip, mesh.faces.int(), iter_res)
+        dr.RasterizeCudaContext(), v_pos_clip, mesh.faces.int(), iter_res)
 
     out_dict = {}
     for type in return_types:
